@@ -1,0 +1,42 @@
+CREATE TABLE
+films (
+title VARCHAR (50), 
+id SERIAL,
+country VARCHAR (50),
+box_office BIGINT,
+release_year TIMESTAMP );
+
+INSERT INTO films
+VALUES 
+('The Hobbit An Unexpected Journey',1,'USA', 1021103568, '2012-11-28'::timestamp),
+('The Terminator,2,'USA', 78371200, '1984-10-26'::timestamp);
+('Interstellar',3,'USA', 675120017, '2014-10-26'::timestamp),
+('Indiana Jones and the Temple of Doom',4,'USA', 333107271, '1984-05-08'::timestamp),
+('Voroshilovskiy strelok',5,'Russia', 0, '2000-02-14'::timestamp);
+
+CREATE TABLE
+persons (
+id SERIAL, 
+fio VARCHAR (50) );
+
+INSERT INTO persons
+VALUES 
+(6,'Peter Jackson'),
+(7,'James Cameron'),
+(8,'Matthew McConaughey'),
+(9,'Harrison Ford'),
+(10,'Mihail Ulyanov');
+
+CREATE TABLE
+persons2content (
+person_id SERIAL,
+ilm_id SERIAL,
+person_type VARCHAR (50) );
+
+INSERT INTO persons2content
+VALUES 
+(1,6,'director'),
+(2,7,'director'),
+(3,8,'actor'),
+(4,9,'actor'),
+(5,10,'actor');
