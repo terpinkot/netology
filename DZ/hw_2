@@ -1,0 +1,37 @@
+SELECT 'FIO: Maximov Ilya ';
+SELECT * FROM ratings LIMIT 10;
+
+SELECT * FROM links
+WHERE
+movieid between 100 and 1000
+AND imdbid LIKE '%42'
+LIMIT 10;
+
+SELECT imdbId
+FROM links
+JOIN ratings
+ON links.movieid = ratings.movieid
+WHERE rating = 5
+LIMIT 10;
+
+SELECT COUNT(*)
+FROM links
+WHERE imdbid IS NULL;
+
+SELECT
+userId,
+AVG(rating) as avg_rating
+FROM public.ratings
+GROUP BY userId
+HAVING AVG(rating) > 3.5
+ORDER BY avg_rating DESC
+LIMIT 10;
+
+SELECT imdbId
+FROM links
+WHERE movieid IN (
+SELECT movieid
+FROM ratings
+GROUP BY movieid
+HAVING AVG(rating) > 3.5)
+LIMIT 10;
