@@ -15,7 +15,8 @@ WHERE rating = 5
 LIMIT 10;
 
 SELECT COUNT(*)
-FROM links
+FROM ratings RIGHT JOIN links
+ON links.movieid=ratings.movieid
 WHERE imdbid IS NULL;
 
 SELECT
@@ -35,3 +36,11 @@ FROM ratings
 GROUP BY movieid
 HAVING AVG(rating) > 3.5)
 LIMIT 10;
+
+WITH users_table
+AS (SELECT userid, AVG (rating) U
+FROM ratings
+GROUP BY userid
+HAVING COUNT (rating) > 10)
+SELECT AVG (U)
+FROM users_table;
