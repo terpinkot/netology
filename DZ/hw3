@@ -14,10 +14,6 @@ FROM ratings
 WHERE userId <>1 LIMIT 1000) as sample
 LIMIT 30;
 
-WHERE CASE WHEN x <> 0 THEN y/x > 1.5 ELSE false END;
-
-
-
 psql -U postgres -c 'CREATE TABLE IF NOT EXISTS keywords2 (Id bigint,Tags text);'
 
 psql -U postgres -c "\\copy  keywords2 FROM '/usr/local/share/netology/raw_data/keywords.csv' DELIMITER ',' CSV HEADER"
