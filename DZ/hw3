@@ -1,12 +1,22 @@
-SELECT userId, movieId, rating,
+SELECT userId, movieId, rating, 
+CASE rating WHEN (MAX(rating) OVER (PARTITION BY userId) - MIN(rating) 
+OVER (PARTITION BY userId)) <> 0 THEN (rating - MIN(rating) OVER (PARTITION BY userId))/(MAX(rating) 
+OVER (PARTITION BY userId) - MIN(rating) 
+OVER (PARTITION BY userId)) > 1.5
+ELSE false
 (rating - MIN(rating) OVER (PARTITION BY userId))/(MAX(rating) 
 OVER (PARTITION BY userId) - MIN(rating) 
 OVER (PARTITION BY userId)) as normed_rating,
 AVG(rating) OVER (PARTITION BY userId) as avg_rating
+END
 FROM (SELECT DISTINCT userId, movieId, rating
 FROM ratings
 WHERE userId <>1 LIMIT 1000) as sample
 LIMIT 30;
+
+WHERE CASE WHEN x <> 0 THEN y/x > 1.5 ELSE false END;
+
+
 
 psql -U postgres -c 'CREATE TABLE IF NOT EXISTS keywords2 (Id bigint,Tags text);'
 
