@@ -48,3 +48,34 @@ GROUP BY department.name;
  GROUP BY Department.name
  HAVING COUNT (chief_doc_id)>=3
  );
+ 
+ SELECT department_id,
+ AVG(num_public) as avg_public
+ FROM Employee
+ GROUP BY department_id
+ HAVING AVG(num_public) > 1;
+ 
+WITH dep_public AS (
+SELECT Department.id,Department.name,
+SUM(Employee.num_public) AS total_public
+FROM Department 
+JOIN Employee ON Department.id=Employee.department_id
+GROUP BY Department.id, Department.name
+ORDER BY total_public DESC)
+SELECT * FROM dep_public
+WHERE total_public = (
+SELECT total_public FROM dep_public LIMIT 1);
+
+WITH mp AS (
+SELECT
+MIN(Employee.num_public) AS num_public,
+Employee.department_id
+FROM Employee
+GROUP BY Employee.department_id)
+SELECT Department.id, Department.name, Employee.name, Employee.num_public FROM mp
+FULL OUTER JOIN Employee ON Employee.num_public = mp.num_public
+JOIN Department ON Department.id = Employee.department_id
+WHERE Department.id = mp.department_id AND Employee.num_public = mp.num_public
+ORDER BY Department.id;
+ 
+ 
