@@ -38,8 +38,8 @@ insert into Employee values
 SELECT * FROM Department;
 SELECT * FROM Employee;
 SELECT Department.name, COUNT (distinct chief_doc_id) FROM Department 
-LEFT JOIN Employee ON department.id = employee.department_id
-GROUP BY department.name;
+LEFT JOIN Employee ON Department.id = Employee.department_id
+GROUP BY Eepartment.name;
 
 (SELECT Department.name, COUNT (chief_doc_id) as Chief_Doc_count
  FROM Department
